@@ -3,7 +3,6 @@ var authController = require('../../controllers/authController');
 
 describe('AuthController', function() {
     beforeEach(function settingUpRoles() {
-        console.log('running before each');
         authController.setRoles(['user']);
     });
     describe('isAuthorized', function() {
