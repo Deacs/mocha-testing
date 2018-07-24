@@ -2,10 +2,13 @@ var assert = require('assert');
 var authController = require('../../controllers/authController');
 
 describe('AuthController', function() {
+    beforeEach(function() {
+        console.log('running before each');
+        authController.setRoles(['user']);
+    });
     describe('isAuthorized', function() {
         // Mocha suggests NOT using arrow function due to binding of this
         it('Should return false if not authorized', () => {
-            authController.setRoles(['user']);
             assert.equal(false, authController.isAuthorized('admin'));
         });
         it('Should return true if not authorized', () => {
@@ -18,8 +21,6 @@ describe('AuthController', function() {
         // rather than the callpath which woould preventt us from 
         // overriding the timeout limit (2000)
         it('Should return false if not authorized', function(done) {
-            this.timeout(2500);
-            authController.setRoles(['user']);
             authController.isAuthorizedAsync('admin', 
             function(isAuth) {
                 assert.equal(false, isAuth);
