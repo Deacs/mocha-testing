@@ -5,10 +5,12 @@ describe('AuthController', function() {
     describe('isAuthorized', function() {
         // Mocha suggests NOT using arrow function due to binding of this
         it('Should return false if not authorized', () => {
-            assert.equal(false, authController.isAuthorized(['user'], 'admin'));
+            authController.setRoles(['user']);
+            assert.equal(false, authController.isAuthorized('admin'));
         });
         it('Should return true if not authorized', () => {
-            assert.equal(true, authController.isAuthorized(['user', 'admin'], 'admin'));
+            authController.setRoles(['user', 'admin']);
+            assert.equal(true, authController.isAuthorized('admin'));
         });
     });
     describe('isAuthorizedAsync', function() {
@@ -17,7 +19,8 @@ describe('AuthController', function() {
         // overriding the timeout limit (2000)
         it('Should return false if not authorized', function(done) {
             this.timeout(2500);
-            authController.isAuthorizedAsync(['user'], 'admin', 
+            authController.setRoles(['user']);
+            authController.isAuthorizedAsync('admin', 
             function(isAuth) {
                 assert.equal(false, isAuth);
                 done();
