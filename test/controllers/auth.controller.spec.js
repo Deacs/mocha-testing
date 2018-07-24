@@ -2,7 +2,7 @@ var assert = require('assert');
 var authController = require('../../controllers/authController');
 
 describe('AuthController', function() {
-    beforeEach(function() {
+    beforeEach(function settingUpRoles() {
         console.log('running before each');
         authController.setRoles(['user']);
     });
@@ -15,6 +15,8 @@ describe('AuthController', function() {
             authController.setRoles(['user', 'admin']);
             assert.equal(true, authController.isAuthorized('admin'));
         });
+        it('Should not allow a get if not authorised');
+        it('should allow get if authorized');
     });
     describe('isAuthorizedAsync', function() {
         // Not using arrow functions as it would bind this to the lexical
