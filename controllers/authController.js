@@ -13,7 +13,13 @@ function AuthController() {
         setTimeout(function(){cb(roles.indexOf(neededRole) >= 0)}, 0);
     }
 
-    return { setRoles, isAuthorized, isAuthorizedAsync }
+    function isAuthorizedPromise(neededRole, cb) {
+        return new Promise(function(resolve) {
+            setTimeout(function(){resolve(roles.indexOf(neededRole) >= 0)}, 0);
+        });
+    }
+
+    return { setRoles, isAuthorized, isAuthorizedAsync, isAuthorizedPromise }
 }
 
 module.exports = AuthController();
