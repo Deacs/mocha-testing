@@ -1,5 +1,6 @@
 var assert = require('assert');
 var authController = require('../../controllers/authController');
+var expect = require('chai').expect;
 
 describe('AuthController', function() {
     beforeEach(function settingUpRoles() {
@@ -8,11 +9,13 @@ describe('AuthController', function() {
     describe('isAuthorized', function() {
         // Mocha suggests NOT using arrow function due to binding of this
         it('Should return false if not authorized', () => {
-            assert.equal(false, authController.isAuthorized('admin'));
+            var isAuth = authController.isAuthorized('admin');
+            expect(isAuth).to.be.false;
         });
         it('Should return true if not authorized', () => {
             authController.setRoles(['user', 'admin']);
-            assert.equal(true, authController.isAuthorized('admin'));
+            var isAuth = authController.isAuthorized('admin');
+            expect(isAuth).to.be.true;
         });
         it('Should not allow a get if not authorised');
         it('should allow get if authorized');
@@ -24,7 +27,7 @@ describe('AuthController', function() {
         it('Should return false if not authorized', function(done) {
             authController.isAuthorizedAsync('admin', 
             function(isAuth) {
-                assert.equal(false, isAuth);
+                expect(isAuth).to.be.false;
                 done();
             });
         });
